@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculator</title>
+<style>
+  :root { --bg:#0f1420; --panel:#1a2133; --key:#252e45; --key-h:#303b59; --op:#f5a623; --op-h:#ffb84d; --eq:#2ecc71; --fg:#f2f5fa; --mut:#8b96b0; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--fg); font-family:"Segoe UI",system-ui,sans-serif; }
+  .calc { width:min(340px,92vw); background:var(--panel); border-radius:22px; padding:18px; box-shadow:0 20px 50px rgba(0,0,0,.45); }
+  .screen { background:#0b101b; border-radius:14px; padding:14px 16px; margin-bottom:14px; text-align:right; min-height:92px; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; }
+  .expr { color:var(--mut); font-size:15px; min-height:20px; word-break:break-all; }
+  .out { font-size:42px; font-weight:600; word-break:break-all; line-height:1.15; }
+  .keys { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  button { border:0; border-radius:14px; padding:16px 0; font-size:20px; color:var(--fg); background:var(--key); cursor:pointer; transition:background .12s, transform .06s; }
+  button:hover { background:var(--key-h); }
+  button:active { transform:scale(.95); }
+  button.op { background:var(--op); color:#1a1200; font-weight:600; }
+  button.op:hover { background:var(--op-h); }
+  button.fn { color:var(--op); }
+  button.eq { background:var(--eq); color:#06210f; font-weight:700; }
+  button.wide { grid-column:span 2; }
+  .hint { text-align:center; color:var(--mut); font-size:12px; margin-top:12px; }
+</style>
+</head>
+<body>
+<div class="calc">
+  <div class="screen"><div class="expr" id="expr"></div><div class="out" id="out">0</div></div>
+  <div class="keys" id="keys">
+    <button class="fn" data-a="clear">AC</button>
+    <button class="fn" data-a="back">⌫</button>
+    <button class="fn" data-a="pct">%</button>
+    <button class="op" data-v="/">÷</button>
+    <button data-v="7">7</button><button data-v="8">8</button><button data-v="9">9</button><button class="op" data-v="*">×</button>
+    <button data-v="4">4</button><button data-v="5">5</button><button data-v="6">6</button><button class="op" data-v="-">−</button>
+    <button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button class="op" data-v="+">+</button>
+    <button class="wide" data-v="0">0</button><button data-v=".">.</button><button class="eq" data-a="eq">=</button>
+  </div>
+  <div class="hint">You can also use the keyboard: digits, + − * /, Enter, Backspace, Esc</div>
+</div>
+<script>
+  let cur = "0", prev = null, op = null, fresh = false;
+  const out = document.getElementById("out"), expr = document.getElementById("expr");
+  const sym = { "+":"+", "-":"−", "*":"×", "/":"÷" };
+  function fmt(n) { return String(parseFloat(n.toPrecision(12))); }
+  function show() { out.textContent = cur; expr.textContent = prev !== null && op ? fmt(prev) + " " + sym[op] : ""; }
+  function calc(a, b, o) { return o==="+"?a+b : o==="-"?a-b : o==="*"?a*b : b===0?NaN : a/b; }
+  function digit(d) {
+    if (cur === "Error") cur = "0";
+    if (fresh) { cur = "0"; fresh = false; }
+    if (d === "." && cur.includes(".")) return;
+    cur = (cur === "0" && d !== ".") ? d : cur + d;
+    show();
+  }
+  function operator(o) {
+    if (cur === "Error") return;
+    if (op && !fresh) equals(true);
+    prev = parseFloat(cur); op = o; fresh = true; show();
+  }
+  function equals(chain) {
+    if (op === null || cur === "Error") return;
+    const r = calc(prev, parseFloat(cur), op);
+    if (isNaN(r)) { cur = "Error"; prev = null; op = null; fresh = true; show(); return; }
+    expr.textContent = fmt(prev) + " " + sym[op] + " " + fmt(parseFloat(cur)) + " =";
+    cur = fmt(r);
+    if (chain) { prev = r; } else { prev = null; op = null; }
+    fresh = true;
+    out.textContent = cur;
+    if (chain) show();
+  }
+  function act(a) {
+    if (a === "clear") { cur = "0"; prev = null; op = null; fresh = false; show(); }
+    else if (a === "back") { if (!fresh && cur !== "Error") { cur = cur.length > 1 ? cur.slice(0,-1) : "0"; show(); } }
+    else if (a === "pct") { if (cur !== "Error") { cur = fmt(parseFloat(cur) / 100); show(); } }
+    else if (a === "eq") equals(false);
+  }
+  document.getElementById("keys").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.a) act(b.dataset.a);
+    else if ("+-*/".includes(b.dataset.v)) operator(b.dataset.v);
+    else digit(b.dataset.v);
+  });
+  document.addEventListener("keydown", e => {
+    if (/^[0-9.]$/.test(e.key)) digit(e.key);
+    else if ("+-*/".includes(e.key)) operator(e.key);
+    else if (e.key === "Enter" || e.key === "=") { e.preventDefault(); act("eq"); }
+    else if (e.key === "Backspace") act("back");
+    else if (e.key === "Escape") act("clear");
+    else if (e.key === "%") act("pct");
+  });
+  show();
+</script>
+</body>
+</html>

@@ -1,1280 +1,565 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vCard - Personal Portfolio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vijay Kumar Veeranki | Data Science</title>
+<meta name="description" content="Portfolio of Vijay Kumar Veeranki, MSc Data Science student at KU Eichstätt-Ingolstadt. Machine learning, data analytics, dashboards.">
+<meta name="theme-color" content="#070b14">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vijay Kumar Veeranki | Data Science">
+<meta property="og:description" content="MSc Data Science student in Germany. Machine learning, SQL and dashboards, with 15 projects.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070b14'/%3E%3Ctext x='32' y='43' font-size='30' font-family='monospace' font-weight='700' text-anchor='middle' fill='%235eead4'%3EVK%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b14;--bg2:#0c1220;--card:rgba(255,255,255,.04);--line:rgba(255,255,255,.09);--fg:#e8edf7;--mut:#8b97b0;--a:#5eead4;--b:#818cf8;--c:#f472b6;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--a),var(--b),var(--c));z-index:100}
+#glow{position:fixed;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(129,140,248,.16),transparent 65%);transform:translate(-50%,-50%);left:-999px;top:-999px;transition:opacity .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:16px max(20px,5vw);backdrop-filter:blur(14px);background:rgba(7,11,20,.55);border-bottom:1px solid var(--line);transform:translateY(-100%);animation:navIn .9s .3s var(--ease) forwards}
+@keyframes navIn{to{transform:none}}
+.logo{font-weight:800;letter-spacing:-.02em}.logo span{color:var(--a)}
+nav ul{display:flex;gap:26px;list-style:none;font-size:14px;color:var(--mut)}
+nav ul a{position:relative;padding:4px 0;transition:color .3s}
+nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--a);transition:width .35s var(--ease)}
+nav ul a:hover,nav ul a.on{color:var(--fg)}nav ul a:hover::after,nav ul a.on::after{width:100%}
+section{position:relative;z-index:1;padding:110px max(20px,6vw)}
+.wrap{max-width:1120px;margin:0 auto}
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:120px;overflow:hidden}
+#net{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+#hero .wrap{position:relative;z-index:2}
+.tag{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--a);border:1px solid rgba(94,234,212,.3);padding:6px 14px;border-radius:99px;background:rgba(94,234,212,.06)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--a);box-shadow:0 0 0 0 rgba(94,234,212,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(94,234,212,0)}100%{box-shadow:0 0 0 0 rgba(94,234,212,0)}}
+h1{font-size:clamp(40px,7.4vw,92px);line-height:1.02;letter-spacing:-.035em;font-weight:800;margin:22px 0 14px}
+.grad{background:linear-gradient(110deg,var(--a),var(--b) 45%,var(--c));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.grad{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit;animation:none}
+.grad .w{background:linear-gradient(110deg,var(--a),var(--b) 45%,var(--c));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.role{font-size:clamp(18px,2.6vw,28px);color:var(--mut);min-height:1.6em}
+.role b{color:var(--fg);font-weight:600}
+.caret{display:inline-block;width:2px;height:1em;background:var(--a);margin-left:3px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lead{max-width:620px;margin:22px 0 34px;color:var(--mut);font-size:17px}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:12px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--card);transition:transform .25s var(--ease),box-shadow .3s,border-color .3s;will-change:transform}
+.btn.p{background:linear-gradient(120deg,var(--a),var(--b));color:#06101c;border:0;box-shadow:0 10px 30px -8px rgba(94,234,212,.5)}
+.btn:hover{border-color:var(--a)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin-top:64px;max-width:760px}
+.stat{padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.stat b{display:block;font-size:34px;letter-spacing:-.03em;background:linear-gradient(120deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:13px;color:var(--mut)}
+.scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;width:24px;height:40px;border:2px solid var(--mut);border-radius:14px}
+.scroll::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;border-radius:2px;background:var(--a);transform:translateX(-50%);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,14px)}}
+.eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--a);margin-bottom:12px}
+h2{font-size:clamp(30px,4.6vw,52px);letter-spacing:-.03em;line-height:1.1;margin-bottom:46px}
+.about{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:start}
+.about p{color:var(--mut);margin-bottom:16px}.about p b{color:var(--fg);font-weight:600}
+.facts{display:grid;gap:12px}
+.fact{padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--card);display:flex;justify-content:space-between;gap:14px;font-size:14px}
+.fact span{color:var(--mut)}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.panel{padding:26px;border:1px solid var(--line);border-radius:20px;background:var(--card);backdrop-filter:blur(6px)}
+.panel h3{font-size:17px;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.bar{margin-bottom:15px}
+.bar div.l{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;color:var(--mut)}
+.bar .t{height:6px;background:rgba(255,255,255,.07);border-radius:9px;overflow:hidden}
+.bar .f{height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--a),var(--b));transition:width 1.4s var(--ease)}
+.learn{margin-top:22px;padding:18px 22px;border:1px dashed rgba(244,114,182,.45);border-radius:16px;font-size:14px;color:var(--mut)}
+.learn b{color:var(--c)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{padding:5px 12px;border-radius:99px;font-size:12.5px;border:1px solid var(--line);color:var(--fg);background:rgba(255,255,255,.04)}
+.proj{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;perspective:1200px}
+.card{position:relative;padding:28px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));transition:transform .2s ease-out,border-color .3s;transform-style:preserve-3d;will-change:transform;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(94,234,212,.14),transparent 55%);opacity:0;transition:opacity .3s}
+.card:hover{border-color:rgba(94,234,212,.4)}.card:hover::before{opacity:1}
+.card>*{position:relative;transform:translateZ(24px)}
+.kpi{font-size:44px;font-weight:800;letter-spacing:-.04em;background:linear-gradient(120deg,var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.card h3{font-size:20px;margin:10px 0 6px}
+.card p{color:var(--mut);font-size:14.5px;margin-bottom:14px}
+.card .links{display:flex;gap:14px;font-size:13.5px;margin-top:16px}
+.card .links a{color:var(--a);border-bottom:1px solid transparent;transition:border-color .3s}.card .links a:hover{border-color:var(--a)}
+.chart{margin-top:6px;height:58px;display:flex;align-items:flex-end;gap:6px}
+.chart i{flex:1;background:linear-gradient(180deg,var(--b),rgba(129,140,248,.2));border-radius:5px 5px 0 0;height:0;transition:height 1.1s var(--ease)}
+.pipe{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 14px;font-size:12.5px}
+.pipe span{padding:5px 11px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+.pipe em{color:var(--a);font-style:normal}
+.flag{border-color:rgba(129,140,248,.4);grid-column:1/-1}
+.badge{display:inline-block;font-size:11.5px;padding:3px 10px;border-radius:99px;background:rgba(244,114,182,.12);color:var(--c);border:1px solid rgba(244,114,182,.35);margin-bottom:10px}
+.tl{position:relative;padding-left:34px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--a),var(--b),transparent)}
+.ev{position:relative;padding:0 0 34px}
+.ev::before{content:"";position:absolute;left:-34px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--a);box-shadow:0 0 0 6px rgba(94,234,212,.1)}
+.ev small{color:var(--a);font-size:13px}.ev h3{font-size:19px;margin:2px 0}.ev p{color:var(--mut);font-size:14.5px}
+.ev ul{margin:8px 0 0 18px;color:var(--mut);font-size:14.5px}
+#contact{text-align:center}
+#contact h2{margin-bottom:18px}
+#contact p{color:var(--mut);max-width:520px;margin:0 auto 34px}
+.mail{font-size:clamp(20px,3.4vw,34px);font-weight:700;letter-spacing:-.02em;border-bottom:2px solid var(--a);padding-bottom:4px}
+.social{display:flex;justify-content:center;gap:14px;margin-top:34px;flex-wrap:wrap}
+footer{padding:30px;text-align:center;color:var(--mut);font-size:13px;border-top:1px solid var(--line);position:relative;z-index:1}
+.rv{opacity:0;transform:translateY(34px) scale(.98);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+.w{display:inline-block;opacity:0;transform:translateY(60%) rotateX(-70deg);transform-origin:50% 100%;animation:wIn .9s var(--ease) forwards;animation-delay:calc(.4s + var(--i)*.07s)}
+@keyframes wIn{to{opacity:1;transform:none}}
+.viz{height:176px;border-radius:14px;border:1px solid var(--line);background:radial-gradient(120% 120% at 50% 0%,rgba(129,140,248,.14),rgba(0,0,0,.35));margin-bottom:18px;position:relative;overflow:hidden;transform:translateZ(14px)!important}
+.viz>small{position:absolute;right:10px;bottom:6px;font-size:10px;color:var(--mut);letter-spacing:.04em}
+.viz svg{width:100%;height:100%;display:block}
+.vlab{position:absolute;left:12px;top:10px;font-size:11px;color:var(--a)}
+/* forest */
+.forest{display:grid;grid-template-columns:repeat(8,1fr);gap:7px;padding:32px 16px 34px}
+.forest i{height:16px;border-radius:5px;background:rgba(255,255,255,.07);transition:background .4s,transform .4s,box-shadow .4s}
+.forest i.y{background:var(--a);box-shadow:0 0 14px rgba(94,234,212,.7);transform:scale(1.12)}
+.forest i.n{background:var(--c);box-shadow:0 0 14px rgba(244,114,182,.5)}
+.verdict{position:absolute;right:12px;top:10px;font-size:11.5px;font-weight:600}
+/* brain */
+.scanline{animation:scan 3.4s ease-in-out infinite}
+@keyframes scan{0%,100%{transform:translateY(8px)}50%{transform:translateY(152px)}}
+.lesion{transform-origin:center;transform-box:fill-box;animation:les 3.4s ease-in-out infinite}
+@keyframes les{0%,38%{opacity:0;transform:scale(.4)}55%,88%{opacity:1;transform:scale(1)}100%{opacity:0}}
+.cnn rect{animation:layer 3.4s ease-in-out infinite;fill:var(--b);opacity:.25}
+.cnn rect:nth-child(2){animation-delay:.35s}.cnn rect:nth-child(3){animation-delay:.7s}.cnn rect:nth-child(4){animation-delay:1.05s}.cnn rect:nth-child(5){animation-delay:1.4s}
+@keyframes layer{0%,100%{opacity:.25}35%{opacity:1}}
+/* dashboard */
+.dash{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:30px 12px 8px}
+.kt{border:1px solid var(--line);border-radius:9px;padding:6px 8px;background:rgba(255,255,255,.04)}
+.kt b{display:block;font-size:15px;color:var(--fg)}.kt span{font-size:9.5px;color:var(--mut)}
+.viz svg.dline{position:absolute;left:12px;right:100px;bottom:18px;width:auto;height:58px}
+.viz svg.donut{position:absolute;right:12px;bottom:14px;width:80px;height:66px}
+.dline path{fill:none;stroke:var(--a);stroke-width:2.4;stroke-dasharray:420;stroke-dashoffset:420}
+.live .dline path{animation:draw 2.6s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.donut circle{fill:none;stroke-width:9;transform-origin:center;transform:rotate(-90deg)}
+.live .donut .arc{animation:dn 2.2s var(--ease) forwards;stroke-dasharray:0 200}
+@keyframes dn{to{stroke-dasharray:118 200}}
+/* sql */
+.sql{padding:30px 14px 8px;font-size:11.5px;line-height:1.55;color:#c8d3f0}
+.sql .k{color:var(--c)}.sql .s{color:var(--a)}
+.sql table{width:100%;border-collapse:collapse;margin-top:6px;font-size:10.5px}
+.sql td{padding:2px 8px;border-bottom:1px solid var(--line);opacity:0;transform:translateX(-8px);transition:.5s}
+.sql tr.show td{opacity:1;transform:none}
+/* emotion */
+.face .eye{animation:blink2 4s infinite;transform-origin:center;transform-box:fill-box}
+@keyframes blink2{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.emo{position:absolute;right:12px;top:10px;font-size:12px;padding:3px 10px;border-radius:99px;border:1px solid var(--a);color:var(--a);transition:.3s}
+/* pipeline */
+.pnode{fill:rgba(255,255,255,.06);stroke:var(--line)}.ptxt{fill:var(--fg);font-size:10px;font-family:'JetBrains Mono',monospace;text-anchor:middle}
 
-  <!--
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
-
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-
-  <!--
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:-18px 0 30px}
+.fbtn{font:500 13.5px Inter,sans-serif;color:var(--mut);background:var(--card);border:1px solid var(--line);padding:9px 18px;border-radius:99px;cursor:pointer;transition:all .3s var(--ease)}
+.fbtn b{color:var(--a);margin-left:4px}.fbtn:hover{color:var(--fg);border-color:var(--a)}.fbtn.on{color:#06101c;background:linear-gradient(120deg,var(--a),var(--b));border-color:transparent}.fbtn.on b{color:#06101c}
+.card.hide{display:none}
+.card.pop{animation:pop .6s var(--ease)}@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.96)}}
+.sb{display:block;height:7px;border-radius:5px;background:linear-gradient(90deg,var(--a),var(--b));width:0;transition:width 1.2s var(--ease)}
+.sql tr.show .sb{width:var(--w)}
+.viz svg .dr{fill:none;stroke:var(--a);stroke-width:2.6;stroke-dasharray:420;stroke-dashoffset:420}
+.live svg .dr{animation:draw 2.4s var(--ease) forwards}.live svg .dr.d2{animation-delay:1.9s}
+.viz svg .band{opacity:0}.live svg .band{animation:fadeIn 1s 2.4s forwards}@keyframes fadeIn{to{opacity:1}}
+.rules{padding:34px 14px 18px;display:grid;gap:5px;font-size:11px;color:var(--mut)}
+.rules div{display:flex;gap:9px;align-items:center;opacity:.35;transition:opacity .5s,color .5s}
+.rules i{width:13px;height:13px;border-radius:4px;border:1.5px solid var(--mut);position:relative;flex:none;transition:all .4s}
+.rules div.ok{opacity:1;color:var(--fg)}.rules div.ok i{background:var(--a);border-color:var(--a)}
+.rules div.ok i::after{content:"";position:absolute;left:3px;top:0;width:4px;height:8px;border:solid #06101c;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.hist{position:absolute;left:14px;right:14px;top:34px;bottom:22px;display:flex;align-items:flex-end;gap:5px}
+.hist i{flex:1;height:0;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--b),rgba(129,140,248,.25));transition:height 1.1s var(--ease)}
+.hist u{position:absolute;top:-4px;bottom:0;width:0;border-left:2px dashed;transition:left 1.4s var(--ease) .6s;left:0}
+.hist u.mean{border-color:var(--c)}.hist u.med{border-color:var(--a)}
+.hist em{position:absolute;top:-16px;font:10px 'JetBrains Mono',monospace;font-style:normal;white-space:nowrap}
+.heat{position:absolute;left:14px;right:14px;top:34px;bottom:22px;display:grid;grid-template-columns:repeat(8,1fr);gap:3px}
+.heat i{border-radius:3px;opacity:0;transform:scale(.4);transition:opacity .5s,transform .5s}
+.heat i.on{opacity:1;transform:none}
+@media(max-width:820px){.about{grid-template-columns:1fr}nav ul{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.w{opacity:1;transform:none}.bar .f{width:var(--w)}.chart i{height:var(--h)}}
+</style>
 </head>
-
 <body>
-
-  <!--
-    - #MAIN
-  -->
-
-  <main>
-
-    <!--
-      - #SIDEBAR
-    -->
-
-    <aside class="sidebar" data-sidebar>
-
-      <div class="sidebar-info">
-
-        <figure class="avatar-box">
-          <!-- NOTE: Make sure this image path is correct -->
-          <img src="assets/images/my-avatar.png" alt="Vijay Kumar" width="80" onerror="this.onerror=null;this.src='https://placehold.co/80x80/EBF2FA/7F9CF5?text=VK';">
-        </figure>
-
-        <div class="info-content">
-          <h1 class="name" title="Vijay Kumar">Vijay Kumar</h1>
-
-          <p class="title">DATA SCIENTIST</p>
-        </div>
-
-        <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-
-      </div>
-
-      <div class="sidebar-info_more">
-
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-
-              <a href="mailto:veerankyvijay@gmail.com" class="contact-link">veerankyvijay@gmail.com</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="phone-portrait-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Phone</p>
-              
-              <a href="tel:+919160932286" class="contact-link">+91 9160932286</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="calendar-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Birthday</p>
-
-              <time datetime="2005-04-10">April 10, 2005</time>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Location</p>
-
-              <address>Vijayawada, Andhra pradesh, India</address>
-            </div>
-
-          </li>
-
-        </ul>
-
-        <div class="separator"></div>
-
-        <ul class="social-list">
-
-          <li class="social-item">
-            <a href="https://www.linkedin.com/in/vijay-kumar-077a6724a" class="social-link" target="_blank">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="https://github.com/veerankyvijay" class="social-link" target="_blank">
-              <ion-icon name="logo-github"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="https://www.instagram.com/mr.vijay1006?utm_source=ig_web_button_share_sheet&igsh=MWU2d3JxZHNwNzc5dg==" class="social-link" target="_blank">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-
-    </aside>
-
-
-
-
-
-    <!--
-      - #main-content
-    -->
-
-    <div class="main-content">
-
-      <!--
-        - #NAVBAR
-      -->
-
-      <nav class="navbar">
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Blog</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Contact</button>
-          </li>
-
-        </ul>
-
-      </nav>
-
-
-
-
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
-
-        <header>
-          <h2 class="h2 article-title">About me</h2>
-        </header>
-
-        <section class="about-text">
-          <p>
-            I am a Data Science professional with a proven ability to develop and deploy high-accuracy models.
-            My expertise lies in leveraging deep learning techniques and data analysis to solve complex problems and drive business improvements.
-            I have a passion for creating scalable, robust solutions that not only deliver high performance but also a clear and accessible user experience.
-          </p>
-
-          <p>
-            My job is to create meaningful impact and deliver creative, data-driven solutions. As a Data Science professional with experience in Python,
-            R language, SQL, and various frameworks and technologies such as TensorFlow,
-            Pandas, and Power BI. I hold a Bachelor's degree in Data Science from P.B Siddhartha college of arts and science.
-            I had a practical experience in developing machine learning models and data analysis through internships and projects.
-          </p>
-        </section>
-
-
-        <!--
-          - service
-        -->
-
-        <section class="service">
-
-          <h3 class="h3 service-title">What i'm doing</h3>
-
-          <ul class="service-list">
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-design.svg" alt="design icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Statistical analysis</h4>
-
-                <p class="service-item-text">
-                  Statistical analysis is the process of collecting, organizing, and interpreting data to identify patterns,
-                  trends, and relationships, and to draw meaningful conclusions.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Machine Learning Models</h4>
-
-                <p class="service-item-text">
-                  A mathematical algorithm trained on data to recognize patterns and make predictions.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-quote.svg" alt="mobile app icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Data Analytics</h4>
-
-                <p class="service-item-text">
-                  Professional dashboard making with Power BI Technology.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-photo.svg" alt="camera icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Photography</h4>
-
-                <p class="service-item-text">
-                  I make high-quality photos of any category at a professional level.
-                </p>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials
-        -->
-
-        <section class="testimonials">
-
-          <h3 class="h3 testimonials-title">Team</h3>
-
-          <ul class="testimonials-list has-scrollbar">
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-2.png" alt="." width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>.</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                   -
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-4.png" alt="." width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>.</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    .
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-3.png" alt="Emily evans" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>.</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    .
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-1.png" alt="Henry william" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>.</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                   .
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials modal
-        -->
-
-        <div class="modal-container" data-modal-container>
-
-          <div class="overlay" data-overlay></div>
-
-          <section class="testimonials-modal">
-
-            <button class="modal-close-btn" data-modal-close-btn>
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-
-            <div class="modal-img-wrapper">
-              <figure class="modal-avatar-box">
-                <img src="https://placehold.co/80x80/EBF2FA/7F9CF5?text=DL" alt="Daniel lewis" width="80" data-modal-img>
-              </figure>
-
-              <img src="https://placehold.co/40x40/EBF2FA/7F9CF5?text=Quote" alt="quote icon">
-            </div>
-
-            <div class="modal-content">
-
-              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
-
-              <time datetime="2021-06-14">14 June, 2021</time>
-
-              <div data-modal-text>
-                <p>
-                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                  lot of experience
-                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                  consectetur adipiscing
-                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                </p>
-              </div>
-
-            </div>
-
-          </section>
-
-        </div>
-
-
-        <!--
-          - clients
-        -->
-
-        <section class="clients">
-
-          <h3 class="h3 clients-title">Clients</h3>
-
-          <ul class="clients-list has-scrollbar">
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="https://placehold.co/100x40/EBF2FA/7F9CF5?text=Client1" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="https://placehold.co/100x40/EBF2FA/7F9CF5?text=Client2" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="https://placehold.co/100x40/EBF2FA/7F9CF5?text=Client3" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="https://placehold.co/100x40/EBF2FA/7F9CF5?text=Client4" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="https://placehold.co/100x40/EBF2FA/7F9CF5?text=Client5" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="https://placehold.co/100x40/EBF2FA/7F9CF5?text=Client6" alt="client logo">
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #RESUME
-      -->
-
-      <article class="resume" data-page="resume">
-
-        <header>
-          <h2 class="h2 article-title">Resume</h2>
-        </header>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Education</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">P.B SIDDHARTHA COLLEGE OF ARTS AND SCIENCE</h4>
-
-              <span>2022 — 2025</span>
-
-              <p class="timeline-text">
-                Bachelor's degree in computer science in data science.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">P.B SIDDHARTHA COLLEGE OF ARTS AND SCIENCE</h4>
-
-              <span>2020 — 2022</span>
-
-              <p class="timeline-text">
-                Intermediate education in MPC group.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Sri Srinivasa Aksharalayam</h4>
-
-              <span>2018 — 2020</span>
-
-              <p class="timeline-text">
-                Secondary School Education.
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Experience</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Data analyst</h4>
-
-              <span>2024 — 2025</span>
-
-              <p class="timeline-text">
-                Designed and presented a series of data visualizations and reports that translated complex data into an accessible format, directly influencing 3
-                key business decisions and improving stakeholder reporting efficiency by 20%.Designed and presented data visualizations and reports that reduced the time to insight for executive leadership by 20%, leading to faster and
-                more informed business decisions.Automated data refresh processes for a Power BI dashboard, saving 5 hours of manual effort per week and ensuring a 99% data accuracy rate
-                for all reports.Analyzed a large-scale Zomato dataset of over 10,000 records to build an interactive Power BI dashboard, demonstrating expertise in data
-                visualization and business intelligence.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Deep Learning Intern</h4>
-
-              <span>2024 — 2024</span>
-
-              <p class="timeline-text">
-                Developed a CNN-based deep learning model for brain tumor classification using a dataset of 4,000 MRI images, achieving 87% accuracy in model
-                performance.Optimized training workflow by leveraging Kaggle's online GPU and TPUs, reducing model training time from 1 hour to just 5 minutes.
-                Improved training efficiency and scalability by utilizing cloud-based infrastructure for large-scale medical image processing.
-                Implemented Convolutional Neural Networks (CNN) to classify brain tumor types. Performed complete model lifecycle: data preprocessing, model
-                training, evaluation, and testing using Python, TensorFlow, and Jupyter Notebook.
-                Engineered automated data preprocessing pipelines in Jupyter Notebook to streamline input preparation for deep learning model training and
-                validation using Python.
-                Refined model evaluation protocols by integrating robust cross-validation strategies and automated performance metric tracking within Jupyter
-                Notebook, ensuring reliable deep learning assessment utilizing Python frameworks.
-
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Machine Learning Intern</h4>
-
-              <span>2023 — 2024</span>
-
-              <p class="timeline-text">
-                Developed a predictive machine learning model using linear regression in R to forecast salary based on employee experience, achieving an 88%
-                accuracy rate on a Kaggle dataset of over 1,000 employee records.
-                Analyzed and cleaned a large dataset, identifying key variables that increased the predictive model's accuracy by 15% and provided actionable
-                insights that informed strategic decisions for the client.
-                Developed a predictive machine learning model using linear regression in R to analyze a Kaggle dataset of over 1,000 employee records and
-                forecast salary based on finalized experience.
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="skill">
-
-          <h3 class="h3 skills-title">My skills</h3>
-
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Python</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">R Language</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">SQL</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">DBMS</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-            
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Artificial Intelligence</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-            
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Machine Learning</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Statistical Analysis</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Predictive models</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">scikit-Learn</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">pytorch</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Pandas</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Numpy</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Data Analysis</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Keras</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Jupyter notebook</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-            </li>
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Kaggle</h5>
-                <data value="100">100%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 100%;"></div>
-              </div>
-            </li>
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #PORTFOLIO
-      -->
-     
-      <article class="portfolio" data-page="portfolio">
-        <header>
-          <h2 class="h2 article-title">Portfolio</h2>
-        </header>
-
-        <section class="projects">
-          <ul class="filter-list">
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-            <li class="filter-item">
-              <button data-filter-btn>Certifications</button>
-            </li>
-            <li class="filter-item">
-              <button data-filter-btn>Applications</button>
-            </li>
-            <li class="filter-item">
-              <button data-filter-btn>Presentations</button>
-            </li>
-          </ul>
-
-          <div class="filter-select-box">
-            <button class="filter-select" data-select>
-              <div class="select-value" data-selecct-value>Select category</div>
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-            </button>
-
-            <ul class="select-list">
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-              <li class="select-item">
-                <button data-select-item>Certifications</button>
-              </li>
-              <li class="select-item">
-                <button data-select-item>Applications</button>
-              </li>
-              <li class="select-item">
-                <button data-select-item>Presentations</button>
-              </li>
-            </ul>
-          </div>
-
-          <ul class="project-list">
-
-            <li class="project-item active" data-filter-item data-category="presentations">
-              <a href="https://drive.google.com/file/d/1w94r1TUYAOHugj2BAhkJGuh14VwUtAlS/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/brain.png" alt="Finance Dashboard" loading="lazy">
-                </figure>
-                <h3 class="project-title">Brain Tumor Detection Using Deep Learning</h3>
-                <p class="project-category">Presentations</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="applications">
-              <a href="#">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="https://placehold.co/300x200/EBF2FA/7F9CF5?text=Project2" alt="Brain Tumor Detection" loading="lazy">
-                </figure>
-                <h3 class="project-title">Brain Tumor Detection</h3>
-                <p class="project-category">Applications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="https://drive.google.com/file/d/11Tbfr6vds4vblhzmmwJDsBtbUC7aEy3L/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src=".\assets\images\Ai.png" alt="Python Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">Ai Tools Workshop</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="applications">
-              <a href="#">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="https://placehold.co/300x200/EBF2FA/7F9CF5?text=Project3" alt="Salary Predictor" loading="lazy">
-                </figure>
-                <h3 class="project-title">Salary Predictor</h3>
-                <p class="project-category">Applications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="presentations">
-              <a href="https://drive.google.com/file/d/1NtIPlZ9MQ8SAKRWkJeK5pyuRlD2P_A9d/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/ppt.png" alt="E-commerce Analytics" loading="lazy">
-                </figure>
-                <h3 class="project-title">Predicting Holiday Bookings
-                  Using Random Forest</h3>
-                <p class="project-category">Presentations</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="https://drive.google.com/file/d/1R-jm7Kz5IGcCed8Rdw_NcRvtFqcMSGrp/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src=".\assets\images\Br.png" alt="Machine Learning Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">British Airway</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-            
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="https://drive.google.com/file/d/1SBvB_NeXrRhp65sQ2fH6vDZSExXdgwY3/view?usp=sharing">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/gpu.png" alt="Data Science Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">Deep Learning with GPUs</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="https://drive.google.com/file/d/1TYnzE94gCliNS_TfZ3R84VjsHLEDrLdb/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/sql.png" alt="SQL Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">SQL Certificate</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="https://drive.google.com/file/d/1L7S4pggiCRmrdTOczPNftG50EtNJ0NHX/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/ten.png" alt="Power BI Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">Deep learning with TensorFlow</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="https://drive.google.com/file/d/1nXrKERm3vNdJyQ-X_nhglS8dT1r3-240/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/icmr.png" alt="Deep Learning Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">ICMR internship Certificate</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="https://drive.google.com/file/d/1nMhcFG_3dpIBz6Xr9hhhuIY6UZi86sQr/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/be.png" alt="R Language Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">Be10x Certificate</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="https://drive.google.com/file/d/1dOqTDLKblsbAZWr5TrYR7lBLYaARocHv/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/great.png" alt="TensorFlow Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">R for Data Science</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="https://drive.google.com/file/d/1GgcD-3VXpOsz5zDxBA2ZKn4rymj7k50B/view">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/vir.png" alt="Pandas Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">Networking Cloud Virtual Internship</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-            
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="#">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="./assets/images/intern.png" alt="Cloud Computing Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">Power BI Dashboard and Dax</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-            
-            <li class="project-item active" data-filter-item data-category="certifications">
-              <a href="#">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="https://placehold.co/300x200/EBF2FA/7F9CF5?text=Cert11" alt="AI Ethics Certificate" loading="lazy">
-                </figure>
-                <h3 class="project-title">AI Ethics Certificate</h3>
-                <p class="project-category">Certifications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="applications">
-              <a href="#">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="https://placehold.co/300x200/EBF2FA/7F9CF5?text=Project5" alt="Customer Churn Model" loading="lazy">
-                </figure>
-                <h3 class="project-title">Customer Churn Model</h3>
-                <p class="project-category">Applications</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="web development">
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-                    <img src="https://placehold.co/300x200/EBF2FA/7F9CF5?text=Project6" alt="Social Media Analysis" loading="lazy">
-                  </figure>
-                  <h3 class="project-title">Social Media Analysis</h3>
-                  <p class="project-category">Web development</p>
-                </a>
-              </li>
-
-            <li class="project-item active" data-filter-item data-category="applications">
-              <a href="#">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="https://placehold.co/300x200/EBF2FA/7F9CF5?text=Project7" alt="Image Classifier" loading="lazy">
-                </figure>
-                <h3 class="project-title">Image Classifier</h3>
-                <p class="project-category">Applications</p>
-              </a>
-            </li>
-            
-            <li class="project-item active" data-filter-item data-category="web development">
-              <a href="#">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img src="https://placehold.co/300x200/EBF2FA/7F9CF5?text=Project8" alt="Task Manager App" loading="lazy">
-                </figure>
-                <h3 class="project-title">Task Manager App</h3>
-                <p class="project-category">Web development</p>
-              </a>
-            </li>
-
-          </ul>
-        </section>
-      </article>
-
-      <!--
-        - #BLOG
-      -->
-
-      <article class="blog" data-page="blog">
-
-        <header>
-          <h2 class="h2 article-title">Blog</h2>
-        </header>
-
-        <section class="blog-posts">
-
-          <ul class="blog-posts-list">
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="https://placehold.co/300x200/EBF2FA/7F9CF5?text=Blog1" alt="Design conferences in 2022" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design conferences in 2022</h3>
-
-                  <p class="blog-text">
-                    Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="https://placehold.co/300x200/EBF2FA/7F9CF5?text=Blog2" alt="Best fonts every designer" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Best fonts every designer</h3>
-
-                  <p class="blog-text">
-                    Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #CONTACT
-      -->
-
-      <article class="contact" data-page="contact">
-
-        <header>
-          <h2 class="h2 article-title">Contact</h2>
-        </header>
-
-        <section class="mapbox" data-mapbox>
-          <figure>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d122452.88192081544!2d80.5622119426342!3d16.51019236340339!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35eff9482d944b%3A0x939b7e84ab4a0265!2sVijayawada%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin"
-              width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </figure>
-        </section>
-
-        <section class="contact-form">
-
-          <h3 class="h3 form-title">Contact Form</h3>
-
-          <form action="#" class="form" data-form>
-
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-            </div>
-
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
-
-            <button class="form-btn" type="submit" disabled data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
-
-          </form>
-
-        </section>
-
-      </article>
-
+<div id="progress"></div><div id="glow"></div>
+<nav>
+  <a class="logo" href="#hero">Vijay<span>.</span>Kumar</a>
+  <ul><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#projects">Projects</a></li><li><a href="#journey">Journey</a></li><li><a href="#contact">Contact</a></li></ul>
+</nav>
+
+<section id="hero">
+  <canvas id="net"></canvas>
+  <div class="wrap">
+    <span class="tag mono"><i class="dot"></i> MSc Data Science · open to working student roles</span>
+    <h1><span class="words" data-t="Vijay Kumar"></span><br><span class="grad words" data-t="Veeranki" data-o="2"></span></h1>
+    <div class="role mono">&gt; <b id="typed"></b><span class="caret"></span></div>
+    <p class="lead rv">I turn messy data into decisions: machine learning models, SQL pipelines and dashboards. Master's student at KU Eichstätt-Ingolstadt, Germany. I build, measure honestly, and explain the result.</p>
+    <div class="btns rv" style="--d:.15s">
+      <a class="btn p mag" href="#projects">View projects →</a>
+      <a class="btn mag" href="https://github.com/veerankyvijay" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn mag" href="https://www.linkedin.com/in/vijay-kumar-077a6724a" target="_blank" rel="noopener">LinkedIn</a>
     </div>
+    <div class="stats rv" style="--d:.3s">
+      <div class="stat"><b data-n="91.95" data-d="2" data-s="%">0</b><span>Flight-booking model accuracy</span></div>
+      <div class="stat"><b data-n="90" data-s="%">0</b><span>Brain-tumour CNN accuracy</span></div>
+      <div class="stat"><b data-n="10000" data-s="+">0</b><span>Records in Power BI dashboard</span></div>
+      <div class="stat"><b data-n="4" data-s="">0</b><span>Internships completed</span></div>
+    </div>
+  </div>
+  <div class="scroll"></div>
+</section>
 
-  </main>
+<section id="about"><div class="wrap">
+  <div class="eyebrow mono rv">01 · About</div><h2 class="rv">Statistics first, then code.</h2>
+  <div class="about">
+    <div class="rv">
+      <p>I'm a <b>Master's student in Data Science</b> at Katholische Universität Eichstätt-Ingolstadt, with a B.Sc. in Mathematics, Statistics &amp; Data Science. I moved to Germany in 2026 to go deeper into machine learning and applied analytics.</p>
+      <p>My work so far covers <b>deep learning for medical images</b>, <b>classification on tabular business data</b> and <b>Power BI reporting</b> with automated refreshes. I care about the question behind the data: which metric matters, and what decision follows.</p>
+      <p>I'm looking for a <b>working student or internship</b> role in data analytics, machine learning or AI, up to 20 hours a week.</p>
+    </div>
+    <div class="facts rv" style="--d:.15s">
+      <div class="fact"><span>Based in</span><b>Eichstätt, Germany</b></div>
+      <div class="fact"><span>Studying</span><b>M.Sc. Data Science, KU</b></div>
+      <div class="fact"><span>Languages</span><b>English (TOEFL 110) · German A1 · Telugu · Hindi</b></div>
+      <div class="fact"><span>Availability</span><b>Up to 20 h/week</b></div>
+    </div>
+  </div>
+</div></section>
 
+<section id="skills" style="background:linear-gradient(180deg,transparent,var(--bg2) 20%,var(--bg2) 80%,transparent)"><div class="wrap">
+  <div class="eyebrow mono rv">02 · Skills</div><h2 class="rv">What I use, and where I proved it.</h2>
+  <div class="skills">
+    <div class="panel rv"><h3>⌨ Programming &amp; data</h3>
+      <div class="bar" data-w="88"><div class="l"><span>Python (Pandas, NumPy)</span><span>daily</span></div><div class="t"><div class="f"></div></div></div>
+      <div class="bar" data-w="78"><div class="l"><span>SQL</span><span>pipelines, joins, window functions</span></div><div class="t"><div class="f"></div></div></div>
+      <div class="bar" data-w="65"><div class="l"><span>R (RStudio)</span><span>regression, stats</span></div><div class="t"><div class="f"></div></div></div>
+    </div>
+    <div class="panel rv" style="--d:.1s"><h3>🧠 Machine learning</h3>
+      <div class="bar" data-w="82"><div class="l"><span>Scikit-learn, Random Forest</span><span>flight booking</span></div><div class="t"><div class="f"></div></div></div>
+      <div class="bar" data-w="72"><div class="l"><span>TensorFlow (CNN)</span><span>brain tumour</span></div><div class="t"><div class="f"></div></div></div>
+      <div class="bar" data-w="75"><div class="l"><span>Model evaluation, EDA</span><span>precision, recall, CV</span></div><div class="t"><div class="f"></div></div></div>
+    </div>
+    <div class="panel rv" style="--d:.2s"><h3>📊 BI &amp; tooling</h3>
+      <div class="bar" data-w="85"><div class="l"><span>Power BI (DAX)</span><span>KPI dashboards</span></div><div class="t"><div class="f"></div></div></div>
+      <div class="bar" data-w="80"><div class="l"><span>Git &amp; GitHub</span><span>version control</span></div><div class="t"><div class="f"></div></div></div>
+      <div class="bar" data-w="70"><div class="l"><span>Tableau</span><span>course project, Unified Mentor</span></div><div class="t"><div class="f"></div></div></div>
+      <div class="bar" data-w="70"><div class="l"><span>Matplotlib, Seaborn</span><span>visualisation</span></div><div class="t"><div class="f"></div></div></div>
+    </div>
+  </div>
+  <div class="learn rv"><b>Currently learning (building mini-projects):</b> FastAPI, Docker, AWS basics, LLM retrieval (RAG).
+    <div class="chips"><span class="chip">FastAPI</span><span class="chip">Docker</span><span class="chip">AWS</span><span class="chip">RAG / LLM</span><span class="chip">German A2</span></div></div>
+</div></section>
 
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
+<section id="projects"><div class="wrap">
+  <div class="eyebrow mono rv">03 · Projects</div><h2 class="rv">Selected work.</h2>
+  <div class="filters rv" id="filters"><button class="fbtn on" data-f="all">All <b>15</b></button><button class="fbtn" data-f="ml">Machine learning</button><button class="fbtn" data-f="analytics">Analytics &amp; EDA</button><button class="fbtn" data-f="sql">SQL</button><button class="fbtn" data-f="bi">BI</button><button class="fbtn" data-f="media">Content &amp; tools</button></div>
+  <div class="proj">
+    <article data-cat="ml" class="card tilt flag rv">
+      <div class="viz" style="height:150px"><span class="vlab mono">live pipeline</span>
+        <svg viewBox="0 0 700 150" preserveAspectRatio="xMidYMid meet">
+          <defs><linearGradient id="pg" x1="0" x2="1"><stop offset="0" stop-color="#5eead4"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+          <path id="pp" d="M40 80 H660" stroke="url(#pg)" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
+          <g><rect class="pnode" x="14" y="58" width="76" height="44" rx="10"/><text class="ptxt" x="52" y="84">Data</text>
+          <rect class="pnode" x="132" y="58" width="92" height="44" rx="10"/><text class="ptxt" x="178" y="84">Clean</text>
+          <rect class="pnode" x="266" y="58" width="92" height="44" rx="10"/><text class="ptxt" x="312" y="84">Model</text>
+          <rect class="pnode" x="400" y="58" width="92" height="44" rx="10"/><text class="ptxt" x="446" y="84">FastAPI</text>
+          <rect class="pnode" x="534" y="58" width="76" height="44" rx="10"/><text class="ptxt" x="572" y="84">Docker</text>
+          <rect class="pnode" x="634" y="58" width="56" height="44" rx="10"/><text class="ptxt" x="662" y="84">BI</text></g>
+          <circle r="5" fill="#5eead4"><animateMotion dur="4.2s" repeatCount="indefinite" path="M40 80 H660"/></circle>
+          <circle r="5" fill="#f472b6"><animateMotion dur="4.2s" begin="1.4s" repeatCount="indefinite" path="M40 80 H660"/></circle>
+          <circle r="5" fill="#818cf8"><animateMotion dur="4.2s" begin="2.8s" repeatCount="indefinite" path="M40 80 H660"/></circle>
+        </svg><small class="mono">illustration of the pipeline being built</small></div>
+      <span class="badge mono">In progress · flagship</span>
+      <h3>End-to-end risk predictor</h3>
+      <p>Imbalanced-class prediction from raw data to a deployed service: cleaning, model comparison with precision and recall, a FastAPI endpoint in Docker, and a live dashboard. Built to show the whole pipeline, not only the notebook.</p>
+      <div class="pipe mono"><span>Data</span><em>→</em><span>Clean (Python/SQL)</span><em>→</em><span>Model + evaluation</span><em>→</em><span>FastAPI</span><em>→</em><span>Docker</span><em>→</em><span>Dashboard</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay" target="_blank" rel="noopener">Follow on GitHub →</a></div>
+    </article>
+    <article data-cat="ml" class="card tilt rv" style="--d:.05s">
+      <div class="viz" id="vForest"><span class="vlab mono">forest · tree votes</span><div class="forest"></div><span class="verdict mono" id="fv">…</span><small class="mono">illustration, not real customer data</small></div>
+      <div class="kpi" data-n="91.95" data-d="2" data-s="%">0</div>
+      <h3>Flight booking prediction</h3>
+      <p>Random Forest on British Airways booking data to predict whether a customer completes a holiday booking.</p>
+      <div class="chart" data-h="62,71,78,84,88,92"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="chips"><span class="chip">Python</span><span class="chip">Random Forest</span><span class="chip">Scikit-learn</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay/holiday-booking-prediction-randomforest" target="_blank" rel="noopener">Code →</a></div>
+    </article>
+    <article data-cat="ml" class="card tilt rv" style="--d:.1s">
+      <div class="viz"><span class="vlab mono">CNN scanning an MRI slice</span>
+        <svg viewBox="0 0 300 176">
+          <defs><radialGradient id="bg" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#cfd8ee" stop-opacity=".55"/><stop offset=".7" stop-color="#7d8bb5" stop-opacity=".35"/><stop offset="1" stop-color="#2a3558" stop-opacity=".2"/></radialGradient>
+          <filter id="bl"><feGaussianBlur stdDeviation="1.2"/></filter></defs>
+          <g filter="url(#bl)"><ellipse cx="105" cy="92" rx="70" ry="62" fill="url(#bg)"/><path d="M105 32 V152" stroke="#2a3558" stroke-width="2" opacity=".6"/>
+          <path d="M60 70 q20 -18 40 0 M110 60 q22 -16 42 4 M55 105 q22 16 44 -2 M112 112 q22 16 42 0 M72 50 q10 12 24 8" stroke="#2a3558" stroke-width="2" fill="none" opacity=".5"/></g>
+          <circle class="lesion" cx="132" cy="78" r="13" fill="#f472b6" opacity="0"/><circle class="lesion" cx="132" cy="78" r="20" fill="none" stroke="#f472b6" stroke-width="1.5" opacity="0"/>
+          <g class="scanline"><rect x="30" y="0" width="150" height="3" fill="#5eead4" opacity=".9"/><rect x="30" y="-18" width="150" height="18" fill="url(#sg)" opacity=".25"/></g>
+          <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5eead4" stop-opacity="0"/><stop offset="1" stop-color="#5eead4"/></linearGradient></defs>
+          <g class="cnn"><rect x="206" y="44" width="14" height="70" rx="3"/><rect x="226" y="52" width="14" height="54" rx="3"/><rect x="246" y="60" width="14" height="38" rx="3"/><rect x="266" y="68" width="14" height="22" rx="3"/><rect x="286" y="76" width="8" height="8" rx="3"/></g>
+          <text x="244" y="132" fill="#8b97b0" font-size="9" font-family="JetBrains Mono" text-anchor="middle">conv → pool → dense</text>
+        </svg><small class="mono">illustration, not patient data</small></div>
+      <div class="kpi" data-n="90" data-s="%">0</div>
+      <h3>Brain tumour detection</h3>
+      <p>TensorFlow CNN that classifies brain-scan images, built at ICMR-NIRT with a Tkinter GUI for real-time model testing.</p>
+      <div class="chart" data-h="40,58,70,80,86,90"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="chips"><span class="chip">TensorFlow</span><span class="chip">CNN</span><span class="chip">Tkinter</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay/Brain_tumour_detection_project" target="_blank" rel="noopener">Code →</a></div>
+    </article>
+    <article data-cat="bi analytics" class="card tilt rv" style="--d:.15s">
+      <div class="viz vdash"><span class="vlab mono">dashboard preview</span>
+        <div class="dash"><div class="kt"><b data-n="10000" data-s="+">0</b><span>records</span></div><div class="kt"><b data-n="5" data-s=" h">0</b><span>saved / week</span></div><div class="kt"><b data-n="3">0</b><span>decisions</span></div></div>
+        <svg class="dline" viewBox="0 0 220 62" preserveAspectRatio="none"><path d="M0 52 C20 48 30 20 55 28 S95 50 120 30 S170 6 220 10"/></svg>
+        <svg class="donut" viewBox="0 0 76 62"><circle cx="38" cy="31" r="19" stroke="rgba(255,255,255,.08)"/><circle class="arc" cx="38" cy="31" r="19" stroke="#818cf8"/></svg>
+        <small class="mono">illustration of the layout</small></div>
+      <div class="kpi" data-n="10000" data-s="+">0</div>
+      <h3>Zomato KPI dashboard (Power BI)</h3>
+      <p>Leadership dashboard on 10,000+ restaurant records with automated data refresh. It saved about 5 manual hours a week and informed 3 business decisions.</p>
+      <div class="chips"><span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Automation</span></div>
+    </article>
+    <article data-cat="bi analytics" class="card tilt rv" style="--d:.15s">
+      <div class="viz vdash"><span class="vlab mono">interactive · click to open</span>
+        <div class="dash"><div class="kt"><b data-n="14.9" data-d="1" data-s="M">0</b><span>total sales</span></div><div class="kt"><b data-n="1.5" data-d="1" data-s="M">0</b><span>profit</span></div><div class="kt"><b data-n="8399">0</b><span>order lines</span></div></div>
+        <svg class="dline" viewBox="0 0 220 62" preserveAspectRatio="none"><path d="M0 50 C15 30 30 44 48 28 S80 40 100 22 S150 36 170 14 S205 22 220 8"/></svg>
+        <svg class="donut" viewBox="0 0 76 62"><circle cx="38" cy="31" r="19" stroke="rgba(255,255,255,.08)"/><circle class="arc" cx="38" cy="31" r="19" stroke="#5eead4"/></svg>
+        <small class="mono">live dashboard →</small></div>
+      <div class="kpi mono" style="font-size:30px">Tableau course</div>
+      <h3>Superstore sales dashboard</h3>
+      <p>Project from my Tableau course at Unified Mentor: a sales-performance dashboard on 8,399 orders (2009–2012) with filters by year, region, category and segment, KPI tiles, monthly trend, profit by sub-category and computed insights. This page is the interactive web version, built on the same cleaned data I used in the course.</p>
+      <div class="chips"><span class="chip">Tableau</span><span class="chip">Dashboard design</span><span class="chip">Python cleaning</span><span class="chip">JavaScript</span></div>
+      <div class="links"><a href="sales-dashboard.html">Open the dashboard →</a></div>
+    </article>
+    <article data-cat="sql" class="card tilt rv" style="--d:.2s">
+      <div class="viz" style="height:214px"><span class="vlab mono">PostgreSQL 17 · Chinook database</span>
+        <div class="sql mono"><div id="sqlq"></div><table><tbody><tr><td>Rock</td><td><b class="sb" style="--w:88%"></b></td></tr><tr><td>Latin</td><td><b class="sb" style="--w:52%"></b></td></tr><tr><td>Metal</td><td><b class="sb" style="--w:41%"></b></td></tr></tbody></table></div>
+        <small class="mono">illustration, bar lengths are examples</small></div>
+      <div class="kpi mono" style="font-size:34px">10 queries</div>
+      <h3>SQL analytics: joins, windows, CTEs</h3>
+      <p>Ten verified PostgreSQL queries on the Chinook music-store database: revenue by artist and genre, running monthly totals, rank of longest tracks, spend versus country average, top customer per country and sales-rep ranking.</p>
+      <div class="chips"><span class="chip">PostgreSQL 17</span><span class="chip">JOINs</span><span class="chip">Window functions</span><span class="chip">CTEs</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay/sql-analytics" target="_blank" rel="noopener">Code →</a></div>
+    </article>
+    <article data-cat="analytics ml" class="card tilt rv" style="--d:.05s">
+      <div class="viz"><span class="vlab mono">sales trend + forecast</span>
+        <svg viewBox="0 0 300 176" preserveAspectRatio="none">
+          <g stroke="rgba(255,255,255,.07)"><path d="M0 60H300M0 100H300M0 140H300"/></g>
+          <path class="dr" d="M10 120 C30 100 45 128 65 96 S100 70 120 90 S150 60 170 74"/>
+          <path class="dr d2" d="M170 74 C190 62 205 82 225 58 S265 44 290 40" stroke="#f472b6" stroke-dasharray="5 5"/>
+          <rect class="band" x="170" y="30" width="120" height="70" fill="rgba(244,114,182,.12)"/>
+          <text x="176" y="26" fill="#f472b6" font-size="9" font-family="JetBrains Mono">forecast 1 · 7 · 30 days</text>
+        </svg><small class="mono">illustration of the method</small></div>
+      <div class="kpi mono" style="font-size:30px">Holt-Winters</div>
+      <h3>Coffee sales analysis &amp; forecast</h3>
+      <p>Cleans coffee-shop transactions, builds month, weekday and hour features, compares sales by product and payment method, and forecasts the next 1, 7 and 30 days with Holt-Winters exponential smoothing. Includes a lookup of each customer's favourite drinks and total spend.</p>
+      <div class="chips"><span class="chip">Python</span><span class="chip">Time series</span><span class="chip">Forecasting</span><span class="chip">Jupyter</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay/coffee-sales-analysis" target="_blank" rel="noopener">Code →</a></div>
+    </article>
+    <article data-cat="analytics" class="card tilt rv" style="--d:.1s">
+      <div class="viz"><span class="vlab mono">filtering 50 phones by 6 rules</span>
+        <div class="rules mono"><div><i></i>Bluetooth · Wi-Fi · touch · ext. memory</div><div><i></i>pixels ≥ median</div><div><i></i>screen size ≥ upper quartile</div><div><i></i>cameras ≥ mean</div><div><i></i>memory, battery, RAM ≥ mean</div><div><i></i>depth, weight ≤ mean</div></div>
+        <small class="mono">rules from the project</small></div>
+      <div class="kpi mono" style="font-size:30px">50 × 17</div>
+      <h3>Telecom phone-specs analysis</h3>
+      <p>Statistical analysis of a 50-phone, 17-column mobile dataset: derived features (total pixels, screen diagonal and area), histograms with mean and median, and six boolean filters to find phones that match a feature profile.</p>
+      <div class="chips"><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Seaborn</span><span class="chip">Descriptive statistics</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay/telecom-analytics-project" target="_blank" rel="noopener">Code →</a></div>
+    </article>
+    <article data-cat="analytics" class="card tilt rv" style="--d:.15s">
+      <div class="viz"><span class="vlab mono">salary distribution · by department</span>
+        <div class="hist" data-bars="14,30,52,70,58,40,26,16,9,5" data-mean="52" data-med="46"></div>
+        <small class="mono">illustration, not the real data</small></div>
+      <div class="kpi mono" style="font-size:30px">Descriptive stats</div>
+      <h3>Employee data case study</h3>
+      <p>Descriptive statistics and EDA on employee data: mean, median, mode, variance, skewness and kurtosis, age versus salary scatterplots, department-wise boxplots and correlation analysis, plus outlier checks.</p>
+      <div class="chips"><span class="chip">Skewness</span><span class="chip">Boxplots</span><span class="chip">Correlation</span><span class="chip">Matplotlib</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay/Descriptive_statistics_case_study_on-employee_data" target="_blank" rel="noopener">Code →</a></div>
+    </article>
+    <article data-cat="analytics" class="card tilt rv" style="--d:.2s">
+      <div class="viz"><span class="vlab mono">mean vs median · skewed feature</span>
+        <div class="hist" data-bars="62,78,60,40,26,17,10,6,4,2" data-mean="38" data-med="24"></div>
+        <small class="mono">illustration of right skew</small></div>
+      <div class="kpi mono" style="font-size:30px">12 features</div>
+      <h3>Wine quality: central tendency</h3>
+      <p>Studies the chemical features of the Wine Quality dataset with mean, median and mode to judge symmetry: fixed acidity looks nearly normal, while residual sugar and chlorides are right-skewed.</p>
+      <div class="chips"><span class="chip">Pandas</span><span class="chip">Distributions</span><span class="chip">Seaborn</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay/wine_quality_analysis_using_central_tendency" target="_blank" rel="noopener">Code →</a></div>
+    </article>
+    <article data-cat="analytics" class="card tilt rv" style="--d:.25s">
+      <div class="viz"><span class="vlab mono">correlation heatmap</span><div class="heat"></div><small class="mono">illustration of the method</small></div>
+      <div class="kpi mono" style="font-size:30px">EDA</div>
+      <h3>Cars dataset: exploratory analysis</h3>
+      <p>Cleaning and exploring a cars dataset: summary statistics, distributions of price, mileage and engine size, correlation heatmaps, brand-wise comparisons and outlier handling.</p>
+      <div class="chips"><span class="chip">Pandas</span><span class="chip">Heatmaps</span><span class="chip">Outliers</span><span class="chip">Seaborn</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay/EDA_for_cars_data" target="_blank" rel="noopener">Code →</a></div>
+    </article>
+    <article data-cat="ml" class="card tilt rv" style="--d:.25s">
+      <div class="viz"><span class="vlab mono">face → emotion</span><span class="emo mono" id="emo">happy</span>
+        <svg class="face" viewBox="0 0 300 176"><circle cx="150" cy="92" r="58" fill="rgba(255,255,255,.07)" stroke="rgba(94,234,212,.5)" stroke-width="2"/>
+          <ellipse class="eye" cx="128" cy="80" rx="6" ry="8" fill="#e8edf7"/><ellipse class="eye" cx="172" cy="80" rx="6" ry="8" fill="#e8edf7"/>
+          <path id="mouth" d="M126 108 Q150 128 174 108" stroke="#5eead4" stroke-width="4" fill="none" stroke-linecap="round" style="transition:d .6s"/>
+          <path id="brow" d="M118 64 Q128 60 138 64 M162 64 Q172 60 182 64" stroke="#8b97b0" stroke-width="3" fill="none" stroke-linecap="round" style="transition:d .6s"/>
+          <rect x="82" y="34" width="136" height="116" rx="8" fill="none" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="14 8"><animate attributeName="stroke-dashoffset" values="0;44" dur="1.6s" repeatCount="indefinite"/></rect></svg>
+        <small class="mono">illustration, not a real person</small></div>
+      <div class="kpi mono" style="font-size:34px">CV</div>
+      <h3>Emotion detection</h3>
+      <p>A simple emotion-detection model on facial images, an early deep-learning experiment.</p>
+      <div class="chips"><span class="chip">Deep learning</span><span class="chip">Python</span></div>
+      <div class="links"><a href="https://github.com/veerankyvijay/emotion_detection" target="_blank" rel="noopener">Code →</a></div>
+    </article>
+    <article data-cat="media ml" class="card tilt rv" style="--d:.05s">
+      <div class="viz"><span class="vlab mono">python → animation frames</span>
+        <svg viewBox="0 0 300 176" preserveAspectRatio="none"><g stroke="rgba(255,255,255,.07)"><path d="M0 60H300M0 100H300M0 140H300"/></g>
+          <path class="dr" d="M10 140 C60 130 90 90 130 70 S220 40 290 34" stroke="#5eead4"/>
+          <path class="dr d2" d="M10 150 C80 148 140 120 200 100 S260 90 290 88" stroke="#f472b6"/></svg>
+        <small class="mono">illustration of the series style</small></div>
+      <div class="kpi mono" style="font-size:30px">8 animations</div>
+      <h3>LinkedIn ML explainer series</h3>
+      <p>A series of short animated explainers on machine-learning ideas for beginners (how a CNN sees an image, why a baseline matters, why high accuracy can still be useless). Each animation is generated with Python and posted as a GIF with a plain-language caption.</p>
+      <div class="chips"><span class="chip">Python</span><span class="chip">Matplotlib animation</span><span class="chip">Data storytelling</span></div>
+    </article>
+    <article data-cat="media" class="card tilt rv" style="--d:.1s">
+      <div class="viz"><span class="vlab mono">idea → script → edit → publish</span>
+        <div class="pipe mono" style="margin-top:44px"><span>Script</span><em>→</em><span>Record</span><em>→</em><span>Edit + subtitles</span><em>→</em><span>Thumbnail</span><em>→</em><span>Publish</span></div>
+        <small class="mono">my content workflow</small></div>
+      <div class="kpi mono" style="font-size:30px">YouTube</div>
+      <h3>Vijay in Germany · channel</h3>
+      <p>My Telugu-language channel about student life and the data-science job search in Germany. I plan the series, write the scripts, edit with word-by-word subtitles in two languages and design thumbnails. It builds communication skills and a public record of my journey.</p>
+      <div class="chips"><span class="chip">Video editing</span><span class="chip">Scriptwriting</span><span class="chip">Audience analytics</span></div>
+      <div class="links"><a href="https://www.youtube.com/@Vijay_in_germany" target="_blank" rel="noopener">Watch →</a></div>
+    </article>
+    <article data-cat="media" class="card tilt rv" style="--d:.15s">
+      <div class="viz"><span class="vlab mono">live · try it</span>
+        <div class="dash" style="grid-template-columns:repeat(4,1fr);margin-top:34px;font-family:JetBrains Mono,monospace;text-align:center"><div class="kt">7</div><div class="kt">×</div><div class="kt">6</div><div class="kt">42</div></div>
+        <small class="mono">small front-end exercise</small></div>
+      <div class="kpi mono" style="font-size:30px">HTML · CSS · JS</div>
+      <h3>Web calculator</h3>
+      <p>A responsive calculator written in plain HTML, CSS and JavaScript with an expression line, keyboard-friendly buttons and a dark theme. A small exercise in front-end logic and layout.</p>
+      <div class="chips"><span class="chip">JavaScript</span><span class="chip">CSS Grid</span></div>
+      <div class="links"><a href="calculator.html">Open it →</a></div>
+    </article>
+  </div></section>
 
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<section id="journey" style="background:linear-gradient(180deg,transparent,var(--bg2) 20%,var(--bg2) 80%,transparent)"><div class="wrap">
+  <div class="eyebrow mono rv">04 · Journey</div><h2 class="rv">Education and experience.</h2>
+  <div class="tl">
+    <div class="ev rv"><small class="mono">Oct 2026 – present</small><h3>M.Sc. Data Science</h3><p>Katholische Universität Eichstätt-Ingolstadt, Germany (full-time, 1st semester)</p></div>
+    <div class="ev rv"><small class="mono">Aug 2025 – Nov 2025</small><h3>Data Science Intern · Unified Mentor</h3><ul><li>Built data pipelines and analyses with SQL and Matplotlib.</li><li>Trained predictive models in Python and R, with Git version control.</li></ul></div>
+    <div class="ev rv"><small class="mono">Oct 2024 – Dec 2024</small><h3>Deep Learning Intern · ICMR-NIRT, Chennai</h3><ul><li>Brain-tumour CNN with 90% accuracy and a Tkinter GUI for real-time testing.</li></ul></div>
+    <div class="ev rv"><small class="mono">May 2024 – Jun 2024</small><h3>Power BI Intern · Codegnan</h3><ul><li>Power BI dashboard on 10,000+ records with automated refresh.</li></ul></div>
+    <div class="ev rv"><small class="mono">May 2024 – Jun 2024</small><h3>Machine Learning Intern · Codegnan</h3><ul><li>Linear-regression model in R on Kaggle data.</li></ul></div>
+    <div class="ev rv"><small class="mono">Oct 2022 – May 2025</small><h3>B.Sc. Data Science (Maths, Statistics &amp; Data Science)</h3><p>P.B. Siddhartha College of Arts and Science, Vijayawada · CGPA 7.98 / 10</p></div>
+  </div>
+</div></section>
 
+<section id="contact"><div class="wrap">
+  <div class="eyebrow mono rv">05 · Contact</div><h2 class="rv">Let's work together.</h2>
+  <p class="rv">I'm available for working student and internship roles in data analytics and machine learning. The fastest way to reach me is email.</p>
+  <a class="mail rv" href="mailto:veerankyvijay@gmail.com">veerankyvijay@gmail.com</a>
+  <div class="social rv">
+    <a class="btn mag" href="https://www.linkedin.com/in/vijay-kumar-077a6724a" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn mag" href="https://github.com/veerankyvijay" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn mag" href="https://www.youtube.com/@Vijay_in_germany" target="_blank" rel="noopener">YouTube</a>
+  </div>
+</div></section>
+<footer class="mono">© 2026 Vijay Kumar Veeranki · Eichstätt, Germany</footer>
+
+<script>
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+// headline word animation
+document.querySelectorAll('.words').forEach(el=>{const o=+(el.dataset.o||0);el.innerHTML=el.dataset.t.split(' ').map((w,i)=>'<span class="w" style="--i:'+(i+o)+'">'+w+'&nbsp;</span>').join('')});
+// typed roles
+const roles=['Data Science student','Machine learning builder','Data analytics & dashboards','Working student, open to roles'];
+const tEl=document.getElementById('typed');let ri=0,ci=0,del=false;
+function type(){const r=roles[ri];tEl.textContent=r.slice(0,ci);
+ if(!del&&ci<r.length){ci++;setTimeout(type,60)}
+ else if(!del){del=true;setTimeout(type,1500)}
+ else if(ci>0){ci--;setTimeout(type,28)}
+ else{del=false;ri=(ri+1)%roles.length;setTimeout(type,300)}}
+if(reduce)tEl.textContent=roles[0];else type();
+// scroll progress + active nav
+const prog=document.getElementById('progress');const links=[...document.querySelectorAll('nav ul a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%';
+ let cur=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<innerHeight*.4)cur=i});links.forEach((a,i)=>a.classList.toggle('on',i===cur))},{passive:true});
+// cursor glow
+const glow=document.getElementById('glow');
+addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'},{passive:true});
+// counters
+function count(el){const n=+el.dataset.n,d=+(el.dataset.d||0),s=el.dataset.s||'';const t0=performance.now(),dur=1600;
+ (function f(t){const p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,4);el.textContent=(n*e).toLocaleString('en',{minimumFractionDigits:d,maximumFractionDigits:d})+s;if(p<1)requestAnimationFrame(f)})(t0)}
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;el.classList.add('in');
+ el.querySelectorAll('[data-n]').forEach(count);if(el.dataset.n)count(el);
+ el.querySelectorAll('.bar').forEach((b,i)=>setTimeout(()=>b.querySelector('.f').style.width=b.dataset.w+'%',i*140));
+ el.querySelectorAll('.chart').forEach(c=>{const h=c.dataset.h.split(',');c.querySelectorAll('i').forEach((x,i)=>setTimeout(()=>x.style.height=h[i]+'%',i*90))});
+ io.unobserve(el)}),{threshold:.18});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+if(reduce){document.querySelectorAll('.bar').forEach(b=>b.querySelector('.f').style.width=b.dataset.w+'%');document.querySelectorAll('.chart').forEach(c=>{const h=c.dataset.h.split(',');c.querySelectorAll('i').forEach((x,i)=>x.style.height=h[i]+'%')});document.querySelectorAll('[data-n]').forEach(count)}
+// 3D tilt + spotlight
+document.querySelectorAll('.tilt').forEach(c=>{
+ c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+  c.style.setProperty('--mx',x+'px');c.style.setProperty('--my',y+'px');
+  if(!reduce)c.style.transform='rotateX('+((y/r.height-.5)*-9)+'deg) rotateY('+((x/r.width-.5)*9)+'deg) translateY(-4px)'});
+ c.addEventListener('pointerleave',()=>c.style.transform='')});
+// magnetic buttons
+document.querySelectorAll('.mag').forEach(b=>{
+ b.addEventListener('pointermove',e=>{if(reduce)return;const r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.22)+'px,'+((e.clientY-r.top-r.height/2)*.3)+'px)'});
+ b.addEventListener('pointerleave',()=>b.style.transform='')});
+// project visuals (start when visible)
+(function(){
+ const forest=document.querySelector('#vForest .forest');if(forest){for(let i=0;i<32;i++)forest.appendChild(document.createElement('i'))}
+ const fv=document.getElementById('fv');
+ function vote(){const t=[...forest.children];t.forEach(x=>x.className='');let y=0;const pBook=.62+Math.random()*.25;
+  t.forEach((x,i)=>setTimeout(()=>{const v=Math.random()<pBook;x.className=v?'y':'n';if(v)y++;
+   fv.textContent='votes: '+y+' / '+(i+1)+(i===t.length-1?'  →  '+(y/t.length>.5?'WILL BOOK':'WON\'T BOOK'):'');
+   fv.style.color=(y/(i+1)>.5)?'var(--a)':'var(--c)'},i*90))}
+ const q='SELECT g.name, SUM(il.unit_price*il.quantity) AS revenue\nFROM invoice_line il JOIN track t USING(track_id)\nJOIN genre g USING(genre_id) GROUP BY g.name\nORDER BY revenue DESC;';
+ const sq=document.getElementById('sqlq');
+ function typeSql(){let i=0;const rows=document.querySelectorAll('.sql tr');rows.forEach(r=>r.classList.remove('show'));sq.innerHTML='';
+  const id=setInterval(()=>{i++;const s=q.slice(0,i).replace(/(SELECT|SUM|AS|FROM|JOIN|USING|GROUP BY|ORDER BY|DESC)/g,'<span class="k">$1</span>').replace(/\n/g,'<br>');sq.innerHTML=s;
+   if(i>=q.length){clearInterval(id);rows.forEach((r,k)=>setTimeout(()=>r.classList.add('show'),300+k*350));setTimeout(typeSql,5500)}},28)}
+ const emos=[{n:'happy',m:'M126 108 Q150 130 174 108',b:'M118 64 Q128 60 138 64 M162 64 Q172 60 182 64',c:'#5eead4'},{n:'sad',m:'M126 120 Q150 104 174 120',b:'M118 66 Q128 62 138 58 M162 58 Q172 62 182 66',c:'#818cf8'},{n:'surprised',m:'M138 112 Q150 132 162 112 Q150 104 138 112',b:'M116 58 Q128 52 140 58 M160 58 Q172 52 184 58',c:'#f472b6'},{n:'neutral',m:'M128 114 L172 114',b:'M118 64 L138 64 M162 64 L182 64',c:'#8b97b0'}];
+ let ei=0;function emo(){const e=emos[ei=(ei+1)%emos.length];document.getElementById('mouth').setAttribute('d',e.m);document.getElementById('brow').setAttribute('d',e.b);document.getElementById('mouth').setAttribute('stroke',e.c);const l=document.getElementById('emo');l.textContent=e.n;l.style.color=e.c;l.style.borderColor=e.c}
+ const o=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const v=e.target;v.classList.add('live');o.unobserve(v);
+  v.querySelectorAll('[data-n]').forEach(el=>{const n=+el.dataset.n,s=el.dataset.s||'',t0=performance.now();(function f(t){const p=Math.min((t-t0)/1500,1);el.textContent=(n*(1-Math.pow(1-p,4))).toLocaleString('en',{minimumFractionDigits:+(el.dataset.d||0),maximumFractionDigits:+(el.dataset.d||0)})+s;if(p<1)requestAnimationFrame(f)})(t0)});
+  if(v.id==='vForest'){vote();setInterval(vote,5200)}
+  if(v.querySelector('#sqlq')){typeSql()}
+  if(v.querySelector('#emo')){setInterval(emo,2200)}
+ }),{threshold:.35});
+ document.querySelectorAll('.viz').forEach(v=>o.observe(v));
+})();
+
+// extra visuals: histograms, heatmap, rules, filters
+(function(){
+ document.querySelectorAll('.hist').forEach(h=>{const bars=h.dataset.bars.split(',').map(Number);bars.forEach(()=>h.appendChild(document.createElement('i')));
+  const mean=document.createElement('u');mean.className='mean';mean.innerHTML='<em style="left:6px;color:var(--c)">mean</em>';const med=document.createElement('u');med.className='med';med.innerHTML='<em style="right:6px;color:var(--a)">median</em>';h.appendChild(mean);h.appendChild(med);h._m=[mean,med]});
+ const hm=document.querySelector('.heat');if(hm){let seed=7;const r=()=>(seed=(seed*9301+49297)%233280)/233280;const N=8,M=[];for(let i=0;i<N;i++){M[i]=[];}
+  for(let i=0;i<N;i++)for(let j=0;j<=i;j++){const v=i===j?1:(r()*2-1);M[i][j]=M[j][i]=v}
+  for(let i=0;i<N;i++)for(let j=0;j<N;j++){const c=document.createElement('i');const v=M[i][j];c.style.background=v>=0?'rgba(94,234,212,'+(.15+.85*v)+')':'rgba(244,114,182,'+(.15+.85*-v)+')';hm.appendChild(c)}}
+ const o2=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const v=e.target;o2.unobserve(v);
+  v.querySelectorAll('.hist').forEach(h=>{const bars=h.dataset.bars.split(',').map(Number),mx=Math.max(...bars);h.querySelectorAll('i').forEach((b,i)=>setTimeout(()=>b.style.height=(bars[i]/mx*100)+'%',i*80));
+   const w=h.getBoundingClientRect().width;h._m[0].style.left=(+h.dataset.mean/100*w)+'px';h._m[1].style.left=(+h.dataset.med/100*w)+'px'});
+  v.querySelectorAll('.heat').forEach(h=>[...h.children].forEach((c,i)=>setTimeout(()=>c.classList.add('on'),i*18)));
+  const rl=v.querySelectorAll('.rules div');if(rl.length){const go=()=>{rl.forEach(d=>d.classList.remove('ok'));rl.forEach((d,i)=>setTimeout(()=>d.classList.add('ok'),500+i*550))};go();setInterval(go,5200)}
+ }),{threshold:.35});
+ document.querySelectorAll('.viz').forEach(v=>o2.observe(v));
+ const fb=document.querySelectorAll('.fbtn'),cards=document.querySelectorAll('.proj .card');
+ fb.forEach(b=>b.addEventListener('click',()=>{fb.forEach(x=>x.classList.toggle('on',x===b));const f=b.dataset.f;
+  cards.forEach(c=>{const show=f==='all'||c.dataset.cat.split(' ').includes(f);c.classList.toggle('hide',!show);if(show){c.classList.remove('rv');c.classList.add('in');c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop')}})}));
+})();
+// particle network hero
+const cv=document.getElementById('net'),cx=cv.getContext('2d');let W,H,P=[],mouse={x:-1e3,y:-1e3};
+function size(){W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio;
+ const n=Math.min(90,Math.floor(cv.offsetWidth/14));P=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35*devicePixelRatio,vy:(Math.random()-.5)*.35*devicePixelRatio,r:(Math.random()*1.6+.6)*devicePixelRatio}))}
+size();addEventListener('resize',size);
+cv.parentElement.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mouse.x=(e.clientX-r.left)*devicePixelRatio;mouse.y=(e.clientY-r.top)*devicePixelRatio});
+function draw(){cx.clearRect(0,0,W,H);const L=150*devicePixelRatio;
+ for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+  const dx=p.x-mouse.x,dy=p.y-mouse.y,dm=Math.hypot(dx,dy);if(dm<160*devicePixelRatio){p.x+=dx/dm*1.2;p.y+=dy/dm*1.2}
+  cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.fillStyle='rgba(94,234,212,.75)';cx.fill()}
+ for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const d=Math.hypot(P[i].x-P[j].x,P[i].y-P[j].y);
+  if(d<L){cx.strokeStyle='rgba(129,140,248,'+(.28*(1-d/L))+')';cx.lineWidth=devicePixelRatio*.8;cx.beginPath();cx.moveTo(P[i].x,P[i].y);cx.lineTo(P[j].x,P[j].y);cx.stroke()}}
+ if(!reduce)requestAnimationFrame(draw)}
+draw();
+})();
+</script>
 </body>
-
 </html>
