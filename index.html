@@ -257,7 +257,7 @@ footer{padding:30px;text-align:center;color:var(--mut);font-size:13px;border-top
 
 <section id="projects"><div class="wrap">
   <div class="eyebrow mono rv">03 · Projects</div><h2 class="rv">Selected work.</h2>
-  <div class="filters rv" id="filters"><button class="fbtn on" data-f="all">All <b>15</b></button><button class="fbtn" data-f="ml">Machine learning</button><button class="fbtn" data-f="analytics">Analytics &amp; EDA</button><button class="fbtn" data-f="sql">SQL</button><button class="fbtn" data-f="bi">BI</button><button class="fbtn" data-f="media">Content &amp; tools</button></div>
+  <div class="filters rv" id="filters"><button class="fbtn on" data-f="all">All <b>18</b></button><button class="fbtn" data-f="ai">AI &amp; automation</button><button class="fbtn" data-f="ml">Machine learning</button><button class="fbtn" data-f="analytics">Analytics &amp; EDA</button><button class="fbtn" data-f="sql">SQL</button><button class="fbtn" data-f="bi">BI</button><button class="fbtn" data-f="media">Content &amp; tools</button></div>
   <div class="proj">
     <article data-cat="ml" class="card tilt flag rv">
       <div class="viz" style="height:150px"><span class="vlab mono">live pipeline</span>
@@ -279,6 +279,48 @@ footer{padding:30px;text-align:center;color:var(--mut);font-size:13px;border-top
       <p>Imbalanced-class prediction from raw data to a deployed service: cleaning, model comparison with precision and recall, a FastAPI endpoint in Docker, and a live dashboard. Built to show the whole pipeline, not only the notebook.</p>
       <div class="pipe mono"><span>Data</span><em>→</em><span>Clean (Python/SQL)</span><em>→</em><span>Model + evaluation</span><em>→</em><span>FastAPI</span><em>→</em><span>Docker</span><em>→</em><span>Dashboard</span></div>
       <div class="links"><a href="https://github.com/veerankyvijay" target="_blank" rel="noopener">Follow on GitHub →</a></div>
+    </article>
+    <article data-cat="ai" class="card tilt flag rv">
+      <div class="viz" style="height:170px"><span class="vlab mono">phone ↔ cloud ↔ laptop</span>
+        <svg viewBox="0 0 700 170" preserveAspectRatio="xMidYMid meet">
+          <defs><linearGradient id="vg" x1="0" x2="1"><stop offset="0" stop-color="#5eead4"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+          <path d="M70 88 H630" stroke="url(#vg)" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
+          <g><rect class="pnode" x="14" y="62" width="112" height="52" rx="12"/><text class="ptxt" x="70" y="85">Phone</text><text class="ptxt" x="70" y="100" style="font-size:8px;opacity:.7">Telegram</text>
+          <rect class="pnode" x="170" y="62" width="112" height="52" rx="12"/><text class="ptxt" x="226" y="85">Modal</text><text class="ptxt" x="226" y="100" style="font-size:8px;opacity:.7">webhook + worker</text>
+          <rect class="pnode" x="318" y="62" width="112" height="52" rx="12"/><text class="ptxt" x="374" y="85">Gemini</text><text class="ptxt" x="374" y="100" style="font-size:8px;opacity:.7">+ Google Search</text>
+          <rect class="pnode" x="466" y="62" width="112" height="52" rx="12"/><text class="ptxt" x="522" y="85">Supabase</text><text class="ptxt" x="522" y="100" style="font-size:8px;opacity:.7">Postgres, RLS</text>
+          <rect class="pnode" x="600" y="62" width="86" height="52" rx="12"/><text class="ptxt" x="643" y="85">Laptop</text><text class="ptxt" x="643" y="100" style="font-size:8px;opacity:.7">office app</text></g>
+          <circle r="5" fill="#5eead4"><animateMotion dur="4.6s" repeatCount="indefinite" path="M70 88 H640"/></circle>
+          <circle r="5" fill="#f472b6"><animateMotion dur="4.6s" begin="1.5s" repeatCount="indefinite" path="M70 88 H640"/></circle>
+          <circle r="5" fill="#818cf8"><animateMotion dur="4.6s" begin="3s" repeatCount="indefinite" path="M70 88 H640"/></circle>
+        </svg><small class="mono">how a message travels</small></div>
+      <span class="badge mono">New · flagship</span>
+      <h3>VijayCloud: an assistant that works while my laptop is off</h3>
+      <p>I send a task to a private Telegram bot from my phone. A serverless worker on Modal answers instantly through a webhook and checks my shared database every five minutes. Tasks that can be done online (research, comparing options, drafting) are completed by Gemini with Google Search and come back with source links in about a minute. Tasks that need my laptop wait safely in Supabase until my local office app picks them up. If the model is busy it retries, and if it still fails the task is handed to the office, so nothing is lost.</p>
+      <p><b>Built to be safe:</b> the webhook accepts only Telegram's secret header and only my own chat, the database is locked with row-level security, no key is ever in the code, and the assistant can prepare but never send, post, buy or pay on its own. 56 automated checks cover the routing, formatting and security rules. Runs on free tiers, so it costs nothing.</p>
+      <div class="pipe mono"><span>Telegram</span><em>→</em><span>FastAPI webhook</span><em>→</em><span>Route: cloud or laptop</span><em>→</em><span>Gemini + Search</span><em>→</em><span>Supabase</span><em>→</em><span>Answer to my phone</span></div>
+      <div class="chips"><span class="chip">Python</span><span class="chip">Modal (serverless)</span><span class="chip">Supabase · PostgreSQL · RLS</span><span class="chip">Gemini API</span><span class="chip">Telegram Bot API</span><span class="chip">FastAPI</span><span class="chip">Automated tests</span></div>
+    </article>
+    <article data-cat="ai" class="card tilt rv" style="--d:.05s">
+      <div class="viz"><span class="vlab mono">boss → team → review → you</span>
+        <div class="pipe mono" style="margin-top:40px"><span>You</span><em>→</em><span>Boss agent</span><em>→</em><span>Team</span><em>→</em><span>Inbox: approve</span></div>
+        <small class="mono">my approval stays in the loop</small></div>
+      <div class="kpi mono" style="font-size:30px">Multi-agent</div>
+      <h3>Vijay Personal Office</h3>
+      <p>A local-first workspace where a boss agent and a team of AI agents (Claude Code and Gemini) work on my tasks: a tasks board, an inbox for approvals, live run timelines, budgets and a loop guard that stops runaway agents, searchable memory, and an error tracker that groups repeated problems. A weekly check-up applies security fixes automatically but only <i>proposes</i> upgrades; I read the changes and say yes, then it merges, tests and rolls back by itself if a test fails.</p>
+      <p>It listens only on my own machine and requires a secret token, and keys are never given to the agents.</p>
+      <div class="chips"><span class="chip">Node.js</span><span class="chip">Server-sent events</span><span class="chip">Claude Code CLI</span><span class="chip">Gemini (Antigravity)</span><span class="chip">Playwright</span><span class="chip">Git automation</span></div>
+    </article>
+    <article data-cat="ai" class="card tilt rv" style="--d:.1s">
+      <div class="viz"><span class="vlab mono">"Hey Jarvis" → listen → act</span>
+        <svg viewBox="0 0 300 176" preserveAspectRatio="none"><g stroke="rgba(255,255,255,.07)"><path d="M0 60H300M0 100H300M0 140H300"/></g>
+          <path class="dr" d="M10 90 C30 40 40 140 60 90 S90 30 110 90 S140 150 160 90 S190 50 210 90 S250 120 290 90" stroke="#5eead4"/>
+          <path class="dr d2" d="M10 100 C40 70 70 120 100 100 S160 80 200 100 S260 110 290 100" stroke="#f472b6"/></svg>
+        <small class="mono">illustration of the voice wave</small></div>
+      <div class="kpi mono" style="font-size:30px">Voice</div>
+      <h3>Jarvis: voice assistant for Windows</h3>
+      <p>A hands-free assistant that wakes on "Hey Jarvis", transcribes what I say, answers with Gemini and runs skills such as opening apps, searching the web and finding my folders. For anything risky it explains the action and the risk and waits for a spoken "yes". It has a floating status window, a neural voice with an offline fallback, a maintenance log and automated tests for the parts that broke before.</p>
+      <div class="chips"><span class="chip">Python</span><span class="chip">Wake word</span><span class="chip">Speech-to-text</span><span class="chip">Gemini</span><span class="chip">Windows automation</span><span class="chip">Tests</span></div>
     </article>
     <article data-cat="ml" class="card tilt rv" style="--d:.05s">
       <div class="viz" id="vForest"><span class="vlab mono">forest · tree votes</span><div class="forest"></div><span class="verdict mono" id="fv">…</span><small class="mono">illustration, not real customer data</small></div>
